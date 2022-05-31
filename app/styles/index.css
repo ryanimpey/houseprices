@@ -1,0 +1,42 @@
+.text--cabin--bold {
+    color: #363636;
+    font-weight: bold;
+    font-family: "Cabin", sans-serif;
+}
+
+.text--title {
+    font-size: 36px;
+    color: #363636;
+    font-family: "Cabin", sans-serif;
+    font-weight: bold;
+}
+
+.text--body {
+    line-height: 18px;
+    font-size: 16px;
+    color: #363636;
+    font-family: "Cabin", sans-serif;
+}
+
+.main--svg--house {
+    max-width: 212px;
+}
+
+.main--text--container {
+    max-width: 360px;
+    text-align: center;
+}
+
+.button--primary {
+    border: 8px solid #36B3FF;
+    border-radius: 22px;
+    background-color: rgba(54, 179, 255, 0.5);
+    padding-left: 5rem;
+    padding-right: 5rem;
+    box-shadow: 5px 5px 0px #363636;
+}
+
+.button--primary:focus {
+    box-shadow: none;
+    pos
+}

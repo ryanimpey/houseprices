@@ -14,15 +14,20 @@ import {
 } from "@remix-run/react";
 
 import tailwindStylesheetUrl from "./styles/tailwind.css";
+import mainStylesheetUrl from "./styles/index.css";
 import { getUser } from "./session.server";
 
-export const links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: tailwindStylesheetUrl }];
-};
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: tailwindStylesheetUrl },
+  { rel: "stylesheet", href: mainStylesheetUrl },
+  { rel: "preconnect", href: "https://fonts.googleapis.com" },
+  { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous"},
+  { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap"}
+];
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "Remix Notes",
+  title: "Loca House Prices",
   viewport: "width=device-width,initial-scale=1",
 });
 
