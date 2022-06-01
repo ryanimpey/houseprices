@@ -79,7 +79,7 @@ export default function Where() {
   }, [fetcher.type]);
 
   if(selectRef.current != null) {
-    console.log(selectRef.current.getValue()[0].label);
+    console.log(selectRef.current.getValue()[0]);
   }
 
   return (
