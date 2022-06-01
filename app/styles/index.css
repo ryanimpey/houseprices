@@ -11,6 +11,10 @@
     font-weight: bold;
 }
 
+.text--subtitle {
+    font-size: 24px;
+}
+
 .text--body {
     line-height: 18px;
     font-size: 16px;
@@ -38,5 +42,4 @@
 
 .button--primary:focus {
     box-shadow: none;
-    pos
 }

@@ -1,10 +1,8 @@
 import { Link } from "@remix-run/react";
 import Button from "~/components/Button";
 
-import { useOptionalUser } from "~/utils";
 
 export default function Index() {
-  const user = useOptionalUser();
   return (
     <main className="min-h-screen bg-white flex flex-col items-center justify-center">
       <img
@@ -21,7 +19,7 @@ export default function Index() {
         </p>
       </div>
       <div className="pt-8 mt-8">
-        <Button>get started</Button>
+        <a href="/where" className="button--primary text--cabin--bold py-1">Helloooo</a>
       </div>
     </main>
   );
