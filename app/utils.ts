@@ -1,5 +1,6 @@
 import { useMatches } from "@remix-run/react";
 import { useMemo } from "react";
+import { StylesConfig } from "react-select";
 
 import type { User } from "~/models/user.server";
 
@@ -69,3 +70,21 @@ export function useUser(): User {
 export function validateEmail(email: unknown): email is string {
   return typeof email === "string" && email.length > 3 && email.includes("@");
 }
+
+export const selectStyle: StylesConfig = {
+  valueContainer: (provided, _) => ({
+    ...provided,
+    padding: "6px 0px 4px 0px",
+  }),
+  indicatorSeparator: (provided, _) => ({
+    height: 0,
+    width: 0,
+  }),
+  control: (provided, state) => ({
+    ...provided,
+    fontFamily: "Cabin",
+    border: "none",
+    borderRadius: 0,
+    borderBottom: "5px solid #36B3FF",
+  }),
+};

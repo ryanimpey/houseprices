@@ -1,26 +1,29 @@
 import { Link } from "@remix-run/react";
 import Button from "~/components/Button";
 
-
 export default function Index() {
   return (
-    <main className="min-h-screen bg-white flex flex-col items-center justify-center">
-      <img
-        className="main--svg--house mb-8 py-8"
-        src="/images/undraw_handcrafts_house.svg"
-      />
-      <div>
-        <h1 className="text--title text-center pb-2">local housing data</h1>
-        <p className="text--body main--text--container">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
-        </p>
-      </div>
-      <div className="pt-8 mt-8">
-        <a href="/where" className="button--primary text--cabin--bold py-1">Helloooo</a>
-      </div>
+    <main className="container flex h-full justify-center">
+      <section className="flex max-w-md flex-col justify-center">
+        <div className="py-8">
+          <img
+            className="m-0 m-auto max-h-56"
+            src="/images/undraw_handcrafts_house.svg"
+          />
+        </div>
+        <div className="mt-4 pt-8">
+          <h1 className="font-sans font-bold text-4xl text-[#363636] text-center pb-4">local housing data</h1>
+          <p className="font-sans text-[#363636] text-center leading-5 max-w-sm">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
+          </p>
+        </div>
+        <div className="mt-8 pt-8 text-center">
+          <Link to="/where" className="font-sans text-[#363636] px-20 shadow-custom py-2 font-bold border-8 border-[#36B3FF] bg-[#9bd9ff] rounded-3xl">get started</Link> 
+        </div>
+      </section>
     </main>
   );
 }
