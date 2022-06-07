@@ -11,8 +11,6 @@ import Select from "react-select";
 import React, { useEffect, useState, useRef } from "react";
 import { selectStyle } from "~/utils";
 
-type LoaderData = { regions: Array<{}>; geojson?: any };
-
 const selectOptions = [
   {
     label: "Detached",
@@ -32,44 +30,47 @@ const selectOptions = [
   },
 ];
 
-export const loader: LoaderFunction = async ({ request }) => {
-  const url = new URL(request.url);
-  const region = url.searchParams.get("region");
-
-  const data: LoaderData = {
-    regions: await getPlaceRegions(),
-  };
-
-  if (region != null) {
-    data["geojson"] = await getPlaceGeo(region);
-  }
-
-  return json(data);
+type SelectResult = {
+  label?: string;
+  value?: string;
 };
 
-export default function Where() {
-  const fetcher = useFetcher();
-  const selectRef = useRef<Select>();
+export default function What() {
+  const [property, setProperty] = useState<SelectResult>({});
+
+  const onPropertyChange = (option: SelectResult) => setProperty(option);
+
+  function buildParamString(): string {
+    if (typeof document !== "undefined") {
+      const url = new URLSearchParams(document?.location?.search ?? null);
+
+      if (property.value != undefined) {
+        url.set("type", property.value);
+      }
+
+      return url.toString();
+    }
+  }
 
   return (
     <main className="container flex h-full justify-center">
       <section className="flex max-w-md flex-col justify-center">
         <div>
           <h1 className="pb-4 text-left font-sans text-2xl font-bold text-[#363636]">
-            Where Are We Buying?
+            What Type of Property?
           </h1>
-          <fetcher.Form method="get" action="/where">
-            <Select
-              ref={selectRef}
-              name="region"
-              placeholder="you need to type here"
-              options={selectOptions}
-              onChange={(e) => console.log(e)}
-              styles={selectStyle}
-            />
-          </fetcher.Form>
+            {typeof document != undefined && (
+              <Select
+                instanceId="select-what"
+                name="property"
+                placeholder="you need to type here"
+                options={selectOptions}
+                onChange={onPropertyChange}
+                styles={selectStyle}
+              />
+            )}
         </div>
-        <div className="my-8 h-96 flex justify-center">
+        <div className="my-8 flex h-96 justify-center">
           <img
             className="m-0 m-auto max-w-300"
             src="/images/undraw_handcrafts_city.svg"
@@ -77,7 +78,7 @@ export default function Where() {
         </div>
         <div className="text-center">
           <Link
-            to="/"
+            to={{ pathname: "/results", search: buildParamString() }}
             className="rounded-3xl border-8 border-[#36B3FF] bg-[#9bd9ff] px-20 py-2 font-sans font-bold text-[#363636] shadow-custom"
           >
             next

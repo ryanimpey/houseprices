@@ -88,3 +88,11 @@ export const selectStyle: StylesConfig = {
     borderBottom: "5px solid #36B3FF",
   }),
 };
+
+export type PropertyType = 'detached' | 'semi-detached' | "terraced" | "flat";
+
+export type PropertyTypeResult = {
+  price?: string,
+  change?: string,
+  changeVal?: string,
+}

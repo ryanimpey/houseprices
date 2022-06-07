@@ -15,9 +15,9 @@ model places {
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model property_prices {
-  Date                         String?
-  Region_Name                  String?
+model prices {
+  Date                         String
+  Region_Name                  String
   Area_Code                    String?
   Detached_Average_Price       Float?
   Detached_Index               Float?
@@ -36,5 +36,5 @@ model property_prices {
   Flat_Monthly_Change          String?
   Flat_Annual_Change           String?
 
-  @@ignore
+  @@id([Region_Name, Date])
 }

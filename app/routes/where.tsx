@@ -63,6 +63,16 @@ export default function Where() {
     fetcher.submit({ region: value }, { method: "get" });
   }
 
+  function buildParamString(): string {
+    let {_, value} = selectRef?.current?.getValue()[0] ?? {};
+
+    if(typeof value == "string") {
+      return `where=${value}`
+    }
+
+    return '';
+  }
+
   useEffect(() => {
     if (fetcher.type == "done" && fetcher.data?.geojson) {
       setPoly(true);
@@ -80,8 +90,8 @@ export default function Where() {
     }
   }, [fetcher.type]);
 
-  let {label, value} = selectRef?.current?.getValue()[0] ?? {};
-  console.log("Labe: ", label);
+  let {label, _} = selectRef?.current?.getValue()[0] ?? {};
+
   return (
     <main className="container flex h-full justify-center">
       <section className="flex max-w-md flex-col justify-center">
@@ -134,7 +144,7 @@ export default function Where() {
         </div>
         <div className="text-center">
           <Link
-            to={`/what${value ? `?where=${value}` : ''}`}
+            to={{pathname: "/what", search: buildParamString()}}
             className="rounded-3xl border-8 border-[#36B3FF] bg-[#9bd9ff] px-20 py-2 font-sans font-bold text-[#363636] shadow-custom"
           >
             next
