@@ -95,4 +95,5 @@ export type PropertyTypeResult = {
   price?: string,
   change?: string,
   changeVal?: string,
+  changeStr?: string,
 }

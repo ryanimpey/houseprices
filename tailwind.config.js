@@ -3,7 +3,8 @@ module.exports = {
   theme: {
     extend: {
       boxShadow: {
-        'custom': '5px 7px 0px #363636'
+        'custom': '5px 7px 0px #363636',
+        'custom-hover': '0px 0px 0px #eee'
       },
       maxWidth: {
         '300': '300px'

@@ -9,10 +9,20 @@ import { places, prices } from "@prisma/client";
 import Select from "react-select";
 import React, { useEffect, useState, useRef } from "react";
 import { PropertyType, PropertyTypeResult, selectStyle } from "~/utils";
-import toStartCase from 'lodash.startcase'
-import { getPresentableTypeString, getRecentPropertyPriceByArea } from "~/models/property_prices.server";
+import toStartCase from "lodash.startcase";
+import {
+  getPriceOverTime,
+  getPresentableTypeString,
+  getRecentPropertyPriceByArea,
+} from "~/models/property_prices.server";
+import Chart from "~/components/Chart";
 
-type LoaderData = { values: PropertyTypeResult, type: PropertyType | null, where: string | null };
+type LoaderData = {
+  values: PropertyTypeResult;
+  type: PropertyType | null;
+  where: string | null;
+  chart: Array<any> | null;
+};
 
 export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
@@ -23,13 +33,14 @@ export const loader: LoaderFunction = async ({ request }) => {
     type: getPresentableTypeString(type),
     where: toStartCase(where),
     values: await getRecentPropertyPriceByArea(where, type),
+    chart: await getPriceOverTime(where, type),
   };
 
   return json(data);
 };
 
 export default function Results() {
-  const { values, where, type } = useLoaderData<LoaderData>();
+  const { values, where, type, chart } = useLoaderData<LoaderData>();
   return (
     <main className="container flex h-full justify-center">
       <section className="flex max-w-md flex-col justify-center">
@@ -41,7 +52,7 @@ export default function Results() {
             You’re looking at data for <strong>{type}</strong> in{" "}
             <strong>{where}</strong>.{" "}
             <Link to="/">
-            <em className="text-[#36B3FF]">change this</em>
+              <em className="text-[#36B3FF]">change this</em>
             </Link>
           </p>
         </div>
@@ -55,21 +66,27 @@ export default function Results() {
         </div>
         <div className="py-6">
           <h3 className="pb-2 text-left font-sans text-2xl font-bold text-[#363636]">
-            This is <span className="text-green-600">up&nbsp;</span>from last
-            month by
+            This is <span className={`text-${values.changeStr === "up" ? "green" : "red"}-600`}>{values.changeStr}</span>
+            &nbsp;from last month by
           </h3>
           <div className="direction-row flex items-center">
             <img
               className="inline-block max-h-14"
-              src="/images/bar_green.svg"
+              src={values.changeStr === "up" ? "/images/bar_green.svg": "/images/bar_red.svg"}
             />
-            <h1 className="inline-block pb-2 pl-4 pr-2 text-left font-sans text-4xl font-bold text-[#363636]">
+            <h1 className="inline-block pb-2 pl-4 pr-2 text-left font-sans text-4xl font-bold">
               {values.change}%
             </h1>
             <h3 className="text-1xl inline-block pb-2 pb-0 text-left font-sans font-bold text-[#363636]">
               ({values.changeVal})
             </h3>
           </div>
+        </div>
+        <div className="py-6 mb-8">
+          <h3 className="pb-2 text-left font-sans text-2xl font-bold text-[#363636]">
+            How prices have changed since 1995
+          </h3>
+          <Chart data={chart} />
         </div>
       </section>
     </main>

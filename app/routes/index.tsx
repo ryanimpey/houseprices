@@ -21,7 +21,7 @@ export default function Index() {
           </p>
         </div>
         <div className="mt-8 pt-8 text-center">
-          <Link to="/where" className="font-sans text-[#363636] px-20 shadow-custom py-2 font-bold border-8 border-[#36B3FF] bg-[#9bd9ff] rounded-3xl">get started</Link> 
+          <Link to="/where" className="translate-x-2 font-sans text-[#363636] px-20 shadow-custom py-2 font-bold hover:shadow-custom-hover border-8 border-[#36B3FF] bg-[#9bd9ff] rounded-3xl">get started</Link> 
         </div>
       </section>
     </main>
