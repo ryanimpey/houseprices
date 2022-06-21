@@ -11,6 +11,14 @@ import Select, { StylesConfig } from "react-select";
 import React, { useEffect, useState, useRef } from "react";
 import toStartCase from 'lodash.startcase'
 import { selectStyle } from "~/utils";
+import type { MetaFunction } from "@remix-run/node";
+
+export const meta: MetaFunction = () => {
+  return {
+    title: "Where | HousePrices",
+  }
+};
+
 
 const accessToken =
   "pk.eyJ1IjoiaW1wZXlyeWFuIiwiYSI6ImNsMnJwNHNtdzMxN3gzbW83eTN1Z3N0eXEifQ.7oi4oIJOhiZtGDOLFWt0Dw";

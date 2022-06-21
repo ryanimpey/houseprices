@@ -16,6 +16,13 @@ import {
   getRecentPropertyPriceByArea,
 } from "~/models/property_prices.server";
 import Chart from "~/components/Chart";
+import type { MetaFunction } from "@remix-run/node";
+
+export const meta: MetaFunction = () => {
+  return {
+    title: "Results | HousePrices",
+  }
+};
 
 type LoaderData = {
   values: PropertyTypeResult;

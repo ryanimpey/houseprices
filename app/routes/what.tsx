@@ -10,6 +10,13 @@ import { getPlaceGeo, getPlaceRegions } from "~/models/places.server";
 import Select from "react-select";
 import React, { useEffect, useState, useRef } from "react";
 import { selectStyle } from "~/utils";
+import type { MetaFunction } from "@remix-run/node";
+
+export const meta: MetaFunction = () => {
+  return {
+    title: "What | HousePrices",
+  }
+};
 
 const selectOptions = [
   {

@@ -1,5 +1,14 @@
 import { Link } from "@remix-run/react";
 import Button from "~/components/Button";
+import type { MetaFunction } from "@remix-run/node";
+
+export const meta: MetaFunction = () => {
+  return {
+    title: "Get Started | HousePrices",
+    description:
+      "Find out how much housing costs in and around your area. Showing results for all housing types back to 1990",
+  };
+};
 
 export default function Index() {
   return (
