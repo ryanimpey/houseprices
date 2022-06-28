@@ -1,19 +1,21 @@
 import { Link, useFetcher, useLoaderData } from "@remix-run/react";
-import { LoaderFunction, json } from "@remix-run/node";
-import Button from "~/components/Button";
+import { json } from "@remix-run/node";
 
-import Map, { Source, Layer, MapRef } from "react-map-gl";
+import Map, { Source, Layer } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { bbox, center, Feature, Point, Properties } from "@turf/turf";
-import { geojson, places } from "@prisma/client";
+import { bbox, center } from "@turf/turf";
 import { getPlaceRegions } from "~/models/places.server";
-import Select, { StylesConfig } from "react-select";
+import Select from "react-select";
 import React, { useEffect, useState, useRef } from "react";
 import toStartCase from 'lodash.startcase'
 import { selectStyle } from "~/utils";
 import type { MetaFunction } from "@remix-run/node";
 import { getDistricts } from "~/models/districts.server";
 import { getGeojsonById } from "~/models/geojson.server";
+
+import type { MapRef } from "react-map-gl";
+import type { LoaderFunction } from "@remix-run/node";
+import type { Feature, Point, Properties } from "@turf/turf";
 
 export const meta: MetaFunction = () => {
   return {
@@ -96,9 +98,9 @@ export default function Where() {
         { padding: 40, duration: 0 }
       );
     }
-  }, [fetcher.type]);
+  }, [fetcher.type, fetcher.data?.geojson]);
 
-  let {label, _} = selectRef?.current?.getValue()[0] ?? {};
+  let {label} = selectRef?.current?.getValue()[0] ?? {};
 
   return (
     <main className="container flex h-full justify-center">

@@ -1,6 +1,6 @@
 import { useMatches } from "@remix-run/react";
 import { useMemo } from "react";
-import { StylesConfig } from "react-select";
+import type { StylesConfig } from "react-select";
 
 import type { User } from "~/models/user.server";
 

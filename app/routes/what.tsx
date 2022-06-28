@@ -1,14 +1,8 @@
-import { Link, useFetcher, useLoaderData } from "@remix-run/react";
-import { LoaderFunction, json } from "@remix-run/node";
-import Button from "~/components/Button";
+import { Link } from "@remix-run/react";
 
-import Map, { Source, Layer, MapRef } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { bbox, center, Feature, Point, Properties } from "@turf/turf";
-import { places } from "@prisma/client";
-import { getPlaceRegions } from "~/models/places.server";
 import Select from "react-select";
-import React, { useEffect, useState, useRef } from "react";
+import { useState } from "react";
 import { selectStyle } from "~/utils";
 import type { MetaFunction } from "@remix-run/node";
 
@@ -66,7 +60,7 @@ export default function What() {
           <h1 className="pb-4 text-left font-sans text-2xl font-bold text-[#363636]">
             What Type of Property?
           </h1>
-            {typeof document != undefined && (
+            {typeof document !== "undefined" && (
               <Select
                 instanceId="select-what"
                 name="property"
@@ -79,6 +73,7 @@ export default function What() {
         </div>
         <div className="my-8 flex h-96 justify-center">
           <img
+            alt="A block of apartments"
             className="m-0 m-auto max-w-300"
             src="/images/undraw_handcrafts_city.svg"
           />

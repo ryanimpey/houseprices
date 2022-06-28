@@ -1,16 +1,9 @@
-import { Link, useFetcher, useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import { json } from "@remix-run/node";
 import type { LoaderFunction } from "@remix-run/node";
-import Button from "~/components/Button";
 
-import Map, { Source, Layer, MapRef } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { bbox, center, Feature, Point, Properties } from "@turf/turf";
-import { places, prices } from "@prisma/client";
-import Select from "react-select";
-import React, { useEffect, useState, useRef } from "react";
-import { PropertyType, PropertyTypeResult, selectStyle } from "~/utils";
-import toStartCase from "lodash.startcase";
+import type { PropertyType, PropertyTypeResult} from "~/utils";
 import {
   getPriceOverTime,
   getPresentableTypeString,
@@ -79,6 +72,7 @@ export default function Results() {
           </h3>
           <div className="direction-row flex items-center">
             <img
+              alt="Indicator of positive or negative property growth"
               className="inline-block max-h-14"
               src={values.changeStr === "up" ? "/images/bar_green.svg": "/images/bar_red.svg"}
             />

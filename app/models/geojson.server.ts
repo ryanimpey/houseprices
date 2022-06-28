@@ -1,5 +1,3 @@
-import type { geojson } from "@prisma/client"
-
 import { prisma } from "~/db.server";
 
 export function getGeojsonById(id: String) {

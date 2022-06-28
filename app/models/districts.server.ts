@@ -1,5 +1,3 @@
-import type { districts } from "@prisma/client"
-
 import { prisma } from "~/db.server";
 
 export async function getDistricts() {

@@ -1,5 +1,4 @@
 import { Link } from "@remix-run/react";
-import Button from "~/components/Button";
 import type { MetaFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {
@@ -16,6 +15,7 @@ export default function Index() {
       <section className="flex max-w-md flex-col justify-center">
         <div className="py-8">
           <img
+            alt="Drawing of a house"
             className="m-0 m-auto max-h-56"
             src="/images/undraw_handcrafts_house.svg"
           />

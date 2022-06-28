@@ -1,7 +1,5 @@
-import type { prices } from "@prisma/client";
-
 import { prisma } from "~/db.server";
-import { PropertyType, PropertyTypeResult } from "~/utils";
+import type { PropertyType, PropertyTypeResult } from "~/utils";
 
 type PropertyPriceType = "Semi_Detached_Average_Price" | "Detached_Average_Price";
 type TypeFieldResult = { [key: string]: boolean };
