@@ -5,13 +5,15 @@ import Button from "~/components/Button";
 import Map, { Source, Layer, MapRef } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { bbox, center, Feature, Point, Properties } from "@turf/turf";
-import { places } from "@prisma/client";
-import { getPlaceGeo, getPlaceRegions } from "~/models/places.server";
+import { geojson, places } from "@prisma/client";
+import { getPlaceRegions } from "~/models/places.server";
 import Select, { StylesConfig } from "react-select";
 import React, { useEffect, useState, useRef } from "react";
 import toStartCase from 'lodash.startcase'
 import { selectStyle } from "~/utils";
 import type { MetaFunction } from "@remix-run/node";
+import { getDistricts } from "~/models/districts.server";
+import { getGeojsonById } from "~/models/geojson.server";
 
 export const meta: MetaFunction = () => {
   return {
@@ -35,18 +37,19 @@ const layerStyle = {
   },
 };
 
-type LoaderData = { regions: Array<{}>; geojson?: any };
+type LoaderData = { regions: Array<{}>; districts: Array<{}>; geojson?: any };
 
 export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
   const region = url.searchParams.get("region");
 
   const data: LoaderData = {
+    districts: await getDistricts(),
     regions: await getPlaceRegions(),
   };
 
   if (region != null) {
-    data["geojson"] = await getPlaceGeo(region);
+    data["geojson"] = await getGeojsonById(region);
   }
 
   return json(data);
@@ -61,21 +64,18 @@ export default function Where() {
     type: "Feature",
     geometry: { coordinates: [0, 0] },
   });
-  const { regions } = useLoaderData<LoaderData>();
-  const selectOptions = regions.flatMap((x) => ({
-    value: x.region,
-    label: toStartCase(x.region),
-  }));
+
+  const { districts } = useLoaderData<LoaderData>();
 
   function onRegionChange({ value }: { value: string }) {
     fetcher.submit({ region: value }, { method: "get" });
   }
 
   function buildParamString(): string {
-    let {_, value} = selectRef?.current?.getValue()[0] ?? {};
+    const current = selectRef?.current?.getValue() ?? {};
 
-    if(typeof value == "string") {
-      return `where=${value}`
+    if(typeof current[0]?.label == "string") {
+      return `where=${encodeURIComponent(current[0]?.label)}`
     }
 
     return '';
@@ -112,7 +112,7 @@ export default function Where() {
               ref={selectRef}
               name="region"
               placeholder="you need to type here"
-              options={selectOptions}
+              options={districts}
               onChange={onRegionChange}
               styles={selectStyle}
             />

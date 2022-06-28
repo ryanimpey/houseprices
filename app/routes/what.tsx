@@ -6,7 +6,7 @@ import Map, { Source, Layer, MapRef } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { bbox, center, Feature, Point, Properties } from "@turf/turf";
 import { places } from "@prisma/client";
-import { getPlaceGeo, getPlaceRegions } from "~/models/places.server";
+import { getPlaceRegions } from "~/models/places.server";
 import Select from "react-select";
 import React, { useEffect, useState, useRef } from "react";
 import { selectStyle } from "~/utils";

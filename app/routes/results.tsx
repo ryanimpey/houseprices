@@ -1,5 +1,6 @@
 import { Link, useFetcher, useLoaderData } from "@remix-run/react";
-import { LoaderFunction, json } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/node";
 import Button from "~/components/Button";
 
 import Map, { Source, Layer, MapRef } from "react-map-gl";
@@ -37,8 +38,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   const type: PropertyType | null = url.searchParams.get("type");
 
   const data: LoaderData = {
+    where,
     type: getPresentableTypeString(type),
-    where: toStartCase(where),
     values: await getRecentPropertyPriceByArea(where, type),
     chart: await getPriceOverTime(where, type),
   };
