@@ -9,9 +9,3 @@ export function getPlaceRegions() {
     },
   });
 }
-
-export function getPlaceGeo(region: string) {
-  return prisma.places.findFirst({
-    where: { region }, select: { geometry: true }
-} );
-}

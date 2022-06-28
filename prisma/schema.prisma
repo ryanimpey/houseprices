@@ -38,3 +38,25 @@ model prices {
 
   @@id([Region_Name, Date])
 }
+
+model districts {
+  OBJECTID     BigInt  @id
+  LAD21CD      String?
+  LAD21NM      String?
+  LAD21NMW     String?
+  BNG_E        BigInt?
+  BNG_N        BigInt?
+  LONG         Float?
+  LAT          Float?
+  GlobalID     String?
+  SHAPE_Length Float?
+  SHAPE_Area   Float?
+}
+
+model geojson {
+  id       BigInt  @id @default(autoincrement())
+  district String?
+  long     Float?
+  lat      Float?
+  geometry Json?
+}

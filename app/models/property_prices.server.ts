@@ -85,6 +85,8 @@ export async function getPriceOverTime(
 ): Promise<any | null> {
   const propertyField = typeToPropertyPriceField(type);
 
+  console.log("WHERE:", where);
+
   const result: Array<ChartResult> = await prisma.prices.findMany({
     where: {
       Region_Name: {
@@ -119,11 +121,12 @@ export async function getRecentPropertyPriceByArea(
     return null;
   }
 
+  console.log("Priusma:", prisma.prices);
+
   const result = await prisma.prices.findFirst({
     where: {
       Region_Name: {
         contains: where,
-        mode: "insensitive",
       },
     },
     orderBy: {
