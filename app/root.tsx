@@ -13,6 +13,8 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import { ToastContainer } from 'react-toastify';
+import * as Sentry from "@sentry/react";
+import { BrowserTracing } from "@sentry/tracing";
 
 import toastifyStylesheetUrl from 'react-toastify/dist/ReactToastify.css';
 import tailwindStylesheetUrl from "./styles/tailwind.css";
@@ -53,6 +55,7 @@ export default function App() {
           <script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4325636149354440" crossOrigin="anonymous" />
       </head>
       <body className="h-full">
+        <ToastContainer />
         <Outlet />
         <ScrollRestoration />
         <Scripts />
@@ -61,3 +64,9 @@ export default function App() {
     </html>
   );
 }
+
+Sentry.init({
+  dsn: "https://702f96a133494e47a5f4a4ab182e06d9@o1302539.ingest.sentry.io/6540151",
+  integrations: [new BrowserTracing()],
+  tracesSampleRate: 0.1
+});

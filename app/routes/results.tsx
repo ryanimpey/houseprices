@@ -42,7 +42,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   };
 
   if(!data.values?.price) {
-    return redirect("/404");
+    return redirect(`/error?${url.searchParams.toString()}`);
   }
 
   return json(data);
