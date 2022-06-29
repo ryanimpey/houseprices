@@ -126,37 +126,14 @@ async function seedProperties() {
 }
 
 async function seed() {
-  // const geojson = await seedGeojson();
-  // console.log("geojson length:", geojson.length);
-
-  // let i = 0;
-  // while(i < geojson.length) {
-  //   let chunk = geojson.slice(i, i + 10);
-  //   let geojson_result = await supabase.from("geojson").insert(chunk);
-  //   console.log("Chunk:", geojson_result.status, geojson_result.statusText);
-  //   i += 10;
-  // }
-
-  // console.log("Geojson done!");
+  const geojson = await seedGeojson();
+  await supabase.from("geojson").insert(geojson);
   
-  // const districts = await seedDistricts();
-  // let districts_result = await supabase.from("districts").insert(districts);
+  const districts = await seedDistricts();
+  await supabase.from("districts").insert(districts);
   
   const properties = await seedProperties();
-  console.log(properties.length);
-
-   let i = 0;
-    while(i < properties.length) {
-    let chunk = properties.slice(i, i + 1000);
-    let properties_result = await supabase.from("prices").insert(chunk);
-
-    if(properties_result.status == 400) {
-      console.log("Bad numbers:  ", i, i + 1000);
-      console.log("Reason:", properties_result);
-    }
-    i +=1000;
-  }
-
+   await supabase.from("prices").insert(chunk);
 }
 
 seed()

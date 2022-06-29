@@ -4,7 +4,6 @@ import { json } from "@remix-run/node";
 import Map, { Source, Layer } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { bbox, center } from "@turf/turf";
-import { getPlaceRegions } from "~/models/places.server";
 import Select from "react-select";
 import React, { useEffect, useState, useRef } from "react";
 import toStartCase from 'lodash.startcase'
