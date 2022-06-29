@@ -40,8 +40,8 @@ script_checks = [ ]
   timeout = "2s"
 
   [[services.http_checks]]
-  interval = 10_000
-  grace_period = "10m"
+  interval = "10m"
+  grace_period = "10s"
   method = "get"
   path = "/healthcheck"
   protocol = "http"
