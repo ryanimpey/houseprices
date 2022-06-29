@@ -42,7 +42,7 @@ return new Promise((resolve, reject) => {
       })
     )
     .on("end", () => resolve(geojson))
-    .on("error", () => reject(error));
+    .on("error", () => reject());
 });
 }
 async function seedDistricts() {
@@ -133,7 +133,7 @@ async function seed() {
   await supabase.from("districts").insert(districts);
   
   const properties = await seedProperties();
-   await supabase.from("prices").insert(chunk);
+   await supabase.from("prices").insert(properties);
 }
 
 seed()
