@@ -35,13 +35,13 @@ script_checks = [ ]
 
   [[services.tcp_checks]]
   grace_period = "1s"
-  interval = "15s"
+  interval = "5m"
   restart_limit = 0
   timeout = "2s"
 
   [[services.http_checks]]
   interval = 10_000
-  grace_period = "5s"
+  grace_period = "10m"
   method = "get"
   path = "/healthcheck"
   protocol = "http"
