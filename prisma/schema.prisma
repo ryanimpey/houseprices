@@ -7,13 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model places {
-  region   String  @id
-  long     String?
-  lat      String?
-  geometry Json?
-}
-
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model prices {
   Date                         String
@@ -36,7 +29,7 @@ model prices {
   Flat_Monthly_Change          String?
   Flat_Annual_Change           String?
 
-  @@id([Region_Name, Date])
+  @@id([Date, Region_Name])
 }
 
 model districts {
@@ -58,5 +51,12 @@ model geojson {
   district String?
   long     Float?
   lat      Float?
+  geometry Json?
+}
+
+model places {
+  region   String  @id
+  long     String?
+  lat      String?
   geometry Json?
 }
