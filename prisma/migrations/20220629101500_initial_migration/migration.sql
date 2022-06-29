@@ -30,7 +30,7 @@ CREATE TABLE "prices" (
     "Flat_Monthly_Change" TEXT,
     "Flat_Annual_Change" TEXT,
 
-    CONSTRAINT "prices_pkey" PRIMARY KEY ("Region_Name","Date")
+    CONSTRAINT "prices_pkey" PRIMARY KEY ("Date", "Region_Name")
 );
 
 -- CreateTable

@@ -29,7 +29,7 @@ model prices {
   Flat_Monthly_Change          String?
   Flat_Annual_Change           String?
 
-  @@id([Date, Region_Name])
+  @@id([Region_Name, Date])
 }
 
 model districts {
@@ -51,12 +51,5 @@ model geojson {
   district String?
   long     Float?
   lat      Float?
-  geometry Json?
-}
-
-model places {
-  region   String  @id
-  long     String?
-  lat      String?
   geometry Json?
 }
