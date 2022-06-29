@@ -2,9 +2,10 @@ import { Link } from "@remix-run/react";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 import Select from "react-select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { selectStyle } from "~/utils";
-import type { MetaFunction } from "@remix-run/node";
+import { LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
+import { toast } from "react-toastify";
 
 export const meta: MetaFunction = () => {
   return {
@@ -36,11 +37,20 @@ type SelectResult = {
   value?: string;
 };
 
+export const loader: LoaderFunction = async ({ request }) => {
+  const url = new URL(request.url);
+  const where = url.searchParams.get("where");
+
+  if(where === null) {
+    return redirect("/where");
+  }
+
+  return null;
+}
+
 export default function What() {
   const [property, setProperty] = useState<SelectResult>({});
-
   const onPropertyChange = (option: SelectResult) => setProperty(option);
-
   function buildParamString(): string {
     if (typeof document !== "undefined") {
       const url = new URLSearchParams(document?.location?.search ?? null);
@@ -50,6 +60,15 @@ export default function What() {
       }
 
       return url.toString();
+    }
+
+    return ""
+  }
+
+  function checkValidData(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
+    if(selectOptions.findIndex((val) => val?.value == property.value) === -1) {
+      toast.info("No property type has been recorded");
+      return e.preventDefault();
     }
   }
 
@@ -81,6 +100,7 @@ export default function What() {
         <div className="text-center">
           <Link
             to={{ pathname: "/results", search: buildParamString() }}
+            onClick={checkValidData}
             className="rounded-3xl border-8 border-[#36B3FF] bg-[#9bd9ff] px-20 py-2 font-sans font-bold text-[#363636] shadow-custom"
           >
             next

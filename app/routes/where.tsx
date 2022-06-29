@@ -15,13 +15,13 @@ import { getGeojsonById } from "~/models/geojson.server";
 import type { MapRef } from "react-map-gl";
 import type { LoaderFunction } from "@remix-run/node";
 import type { Feature, Point, Properties } from "@turf/turf";
+import { Id, toast } from "react-toastify";
 
 export const meta: MetaFunction = () => {
   return {
     title: "Where | HousePrices",
   }
 };
-
 
 const accessToken =
   "pk.eyJ1IjoiaW1wZXlyeWFuIiwiYSI6ImNsMnJwNHNtdzMxN3gzbW83eTN1Z3N0eXEifQ.7oi4oIJOhiZtGDOLFWt0Dw";
@@ -38,7 +38,9 @@ const layerStyle = {
   },
 };
 
-type LoaderData = { districts: Array<{}>; geojson?: any };
+type SelectType = { label: string, value: string } | null;
+
+type LoaderData = { districts: Array<SelectType>; geojson?: any };
 
 export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
@@ -59,6 +61,7 @@ export default function Where() {
   const fetcher = useFetcher();
   const selectRef = useRef<Select>();
   const mapRef = useRef<MapRef>();
+  const [where, setWhere] = useState("");
   const [hasPoly, setPoly] = useState(false);
   const [centre, setCentre] = useState<Feature<Point, Properties>>({
     type: "Feature",
@@ -67,18 +70,33 @@ export default function Where() {
 
   const { districts } = useLoaderData<LoaderData>();
 
-  function onRegionChange({ value }: { value: string }) {
+  function onRegionChange({ value, label }: { value: string, label: string }) {
+    let res = districts.findIndex((val) => val?.label == label);
+    if(res === -1) {
+      return toast.error("Invalid option selected");
+    }
+
+    setWhere(label);
     fetcher.submit({ region: value }, { method: "get" });
   }
 
-  function buildParamString(): string {
-    const current = selectRef?.current?.getValue() ?? {};
-
-    if(typeof current[0]?.label == "string") {
-      return `where=${encodeURIComponent(current[0]?.label)}`
+  function buildParamString(): string | Id {
+    if(where.length == 0) {
+      return "";
+    }
+  
+    if(districts.findIndex((val) => val?.label == where) === -1) {
+      return toast.error("Invalid option selected");
     }
 
-    return '';
+      return `where=${encodeURIComponent(where)}`
+  }
+
+  function checkValidData(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
+    if(districts.findIndex((val) => val?.label == where) === -1) {
+      toast.info("No where option has been recorded.");
+      return e.preventDefault();
+    }
   }
 
   useEffect(() => {
@@ -97,8 +115,6 @@ export default function Where() {
       );
     }
   }, [fetcher.type, fetcher.data?.geojson]);
-
-  let {label} = selectRef?.current?.getValue()[0] ?? {};
 
   return (
     <main className="container flex h-full justify-center">
@@ -144,15 +160,15 @@ export default function Where() {
               </React.Fragment>
             )}
           </Map>
-          {label && (
+          {where.length > 0 && (
             <h3 className="pb-4 text-center font-sans text-2xl font-bold text-[#363636]">
-              {toStartCase(label)}
+              {toStartCase(where)}
             </h3>
           )}
         </div>
         <div className="text-center">
           <Link
-            to={{pathname: "/what", search: buildParamString()}}
+            to={{pathname: "/what", search: buildParamString()}} onClick={checkValidData}
             className="rounded-3xl border-8 border-[#36B3FF] bg-[#9bd9ff] px-20 py-2 font-sans font-bold text-[#363636] shadow-custom"
           >
             next

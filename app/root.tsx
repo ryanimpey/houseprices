@@ -12,12 +12,15 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { ToastContainer } from 'react-toastify';
 
+import toastifyStylesheetUrl from 'react-toastify/dist/ReactToastify.css';
 import tailwindStylesheetUrl from "./styles/tailwind.css";
 import mainStylesheetUrl from "./styles/index.css";
 import { getUser } from "./session.server";
 
 export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: toastifyStylesheetUrl },
   { rel: "stylesheet", href: tailwindStylesheetUrl },
   { rel: "stylesheet", href: mainStylesheetUrl },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -47,7 +50,7 @@ export default function App() {
       <head>
         <Meta />
         <Links />
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4325636149354440" crossOrigin="anonymous" />
+          <script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4325636149354440" crossOrigin="anonymous" />
       </head>
       <body className="h-full">
         <Outlet />

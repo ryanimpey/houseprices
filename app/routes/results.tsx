@@ -1,5 +1,5 @@
 import { Link, useLoaderData } from "@remix-run/react";
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import type { LoaderFunction } from "@remix-run/node";
 
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -30,6 +30,10 @@ export const loader: LoaderFunction = async ({ request }) => {
   const where = url.searchParams.get("where");
   const type: PropertyType | null = url.searchParams.get("type");
 
+  if(where == null || type == null) {
+    return redirect("/where");
+  }
+
   const data: LoaderData = {
     where,
     type: getPresentableTypeString(type),
@@ -37,11 +41,16 @@ export const loader: LoaderFunction = async ({ request }) => {
     chart: await getPriceOverTime(where, type),
   };
 
+  if(!data.values?.price) {
+    return redirect("/404");
+  }
+
   return json(data);
 };
 
 export default function Results() {
   const { values, where, type, chart } = useLoaderData<LoaderData>();
+
   return (
     <main className="container flex h-full justify-center">
       <section className="flex max-w-md flex-col justify-center">
