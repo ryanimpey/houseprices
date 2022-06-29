@@ -16,12 +16,12 @@ const FILE_PROPERTY_PRICES = "./prisma/seed/Average-prices-Property-Type-2022-04
 const FILE_DISTRICTS = "./prisma/seed/Local_Authority_Districts_(December_2021)_GB_BFC.csv";
 
 async function seedGeojson() {
-  const geojson = [];
   const stream = fs.createReadStream(FILE_GEOJSON, { encoding: "utf8" });
   const parser = JSONStream.parse("features..*");
-
+  
   return new Promise((resolve, reject) => {
-    return stream.pipe(parser)
+    const geojson = [];
+    stream.pipe(parser)
       .pipe(
         es.mapSync(async function ({ properties, geometry }) {
           let item = {
@@ -31,11 +31,11 @@ async function seedGeojson() {
             lat: Number(properties["LAT"]),
             geometry,
           };
-
-          geojson.push(item);
         })
       )
-      .on("end", () => resolve(geojson))
+      .on("end", () => {
+        resolve(geojson);
+      })
       .on("error", () => reject(error));
   });
 }
@@ -59,7 +59,21 @@ async function seedDistricts() {
     parser.on("readable", function () {
       let record;
       while ((record = parser.read()) !== null) {
-        records.push(record);
+        records.push(
+          {
+            OBJECTID: Object.values(record)[0],
+            LAD21CD: record['LAD21CD'],
+            LAD21NM: record['LAD21NM'],
+            LAD21NMW: record['LAD21NMW'],
+            BNG_E: record['BNG_E'],
+            BNG_N: record['BNG_N'],
+            LONG: record['LONG'],
+            LAT: record['LAT'],
+            GlobalID: record['GlobalID'],
+            SHAPE_Length: record['SHAPE_Length'],
+            SHAPE_Area: record['SHAPE_Area'],
+          }
+        );
       }
     });
 
@@ -108,14 +122,17 @@ async function seedProperties() {
 
 async function seed() {
   const geojson = await seedGeojson();
-  console.log(geojson[0], geojson.length);
-
-  const districts = await seedDistricts();
-  console.log(districts[0], districts.length);
-
-  const properties = await seedProperties();
-  console.log(properties[0], properties.length);
-  // const upload = await supabase.from("geojson").insert(geojson);
+  console.log("geo:", geojson);
+  // let geojson_result = await supabase.from("geojson").insert(geojson[0]);
+  // console.log("Geojson:", geojson_result);
+  
+  // const districts = await seedDistricts();
+  // let districts_result = await supabase.from("districts").insert(districts);
+  
+  // const properties = await seedProperties();
+  // console.log(properties.length);
+  // let properties_result = await supabase.from("prices").insert(properties);
+  // console.log("Properties:", properties_result);
 }
 
 seed()
