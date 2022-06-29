@@ -39,7 +39,7 @@ const layerStyle = {
   },
 };
 
-type LoaderData = { regions: Array<{}>; districts: Array<{}>; geojson?: any };
+type LoaderData = { districts: Array<{}>; geojson?: any };
 
 export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
@@ -47,7 +47,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const data: LoaderData = {
     districts: await getDistricts(),
-    regions: await getPlaceRegions(),
   };
 
   if (region != null) {
