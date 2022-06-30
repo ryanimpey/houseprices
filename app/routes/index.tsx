@@ -38,6 +38,9 @@ export default function Index() {
             get started
           </Link>
         </div>
+        <div className="mt-8 pt-8 text-center">
+          <p><small>&copy; copyright {new Date().getFullYear()} housedata.uk</small></p>
+        </div>
       </section>
     </main>
   );
