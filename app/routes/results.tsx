@@ -2,7 +2,6 @@ import { Link, useLoaderData } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import type { LoaderFunction } from "@remix-run/node";
 
-import "mapbox-gl/dist/mapbox-gl.css";
 import type { PropertyType, PropertyTypeResult} from "~/utils";
 import {
   getPriceOverTime,
@@ -52,7 +51,7 @@ export default function Results() {
   const { values, where, type, chart } = useLoaderData<LoaderData>();
 
   return (
-    <main className="container flex h-full justify-center">
+    <main className="container flex justify-center my-8">
       <section className="flex max-w-md flex-col justify-center">
         <div className="pb-6">
           <h1 className="pb-4 text-left font-sans text-3xl font-bold text-[#363636]">

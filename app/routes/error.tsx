@@ -1,6 +1,6 @@
 import { Link } from "@remix-run/react";
 import type { LoaderFunction } from "@remix-run/server-runtime";
-import * as Sentry from "@sentry/node";
+import * as Sentry from "@sentry/react";
 
 export const loader: LoaderFunction = async ({ request }) => {
     Sentry.captureMessage("REACHED_ERROR_PAGE", {

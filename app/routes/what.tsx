@@ -1,6 +1,5 @@
 import { Link } from "@remix-run/react";
 
-import "mapbox-gl/dist/mapbox-gl.css";
 import Select from "react-select";
 import { useEffect, useState } from "react";
 import { selectStyle } from "~/utils";

@@ -2,7 +2,6 @@ import { Link, useFetcher, useLoaderData } from "@remix-run/react";
 import { json } from "@remix-run/node";
 
 import Map, { Source, Layer } from "react-map-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
 import { bbox, center } from "@turf/turf";
 import Select from "react-select";
 import React, { useEffect, useState, useRef } from "react";
