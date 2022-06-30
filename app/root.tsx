@@ -34,6 +34,7 @@ export const meta: MetaFunction = () => ({
   charset: "utf-8",
   title: "Loca House Prices",
   viewport: "width=device-width,initial-scale=1",
+  "google-site-verification": "u7CskPSB6o52xMQwZ6ja2AYsvOXUO0BiikCLqcMha6M"
 });
 
 type LoaderData = {
