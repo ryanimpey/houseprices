@@ -98,6 +98,12 @@ export default function Results() {
           </h3>
           <Chart data={chart} />
         </div>
+        <div>
+          <p className="px-2">
+            <small>Source: Office for National Statistics licensed under the Open Government Licence v.3.0<br />
+Contains OS data © Crown copyright and database right {new Date().getFullYear()}</small>
+          </p>
+        </div>
       </section>
     </main>
   );

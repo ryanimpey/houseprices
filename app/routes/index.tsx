@@ -21,16 +21,22 @@ export default function Index() {
           />
         </div>
         <div className="mt-4 pt-8">
-          <h1 className="font-sans font-bold text-4xl text-[#363636] text-center pb-4">local housing data</h1>
-          <p className="font-sans text-[#363636] text-center leading-5 max-w-sm">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+          <h1 className="pb-4 text-center font-sans text-4xl font-bold text-[#363636]">
+            local housing data
+          </h1>
+          <p className="max-w-sm px-3 text-center font-sans leading-5 text-[#363636]">
+            Find out how much pricing for housing has changed in your area, or
+            across the UK. Search by region and property type, and view house
+            price data back to 1995 to see how prices today relate to yesterday.
           </p>
         </div>
         <div className="mt-8 pt-8 text-center">
-          <Link to="/where" className="translate-x-2 font-sans text-[#363636] px-20 shadow-custom py-2 font-bold hover:shadow-custom-hover border-8 border-[#36B3FF] bg-[#9bd9ff] rounded-3xl">get started</Link> 
+          <Link
+            to="/where"
+            className="translate-x-2 rounded-3xl border-8 border-[#36B3FF] bg-[#9bd9ff] px-20 py-2 font-sans font-bold text-[#363636] shadow-custom"
+          >
+            get started
+          </Link>
         </div>
       </section>
     </main>
