@@ -23,7 +23,7 @@ export const meta: MetaFunction = () => {
 };
 
 const accessToken =
-  "pk.eyJ1IjoiaW1wZXlyeWFuIiwiYSI6ImNsMnJwNHNtdzMxN3gzbW83eTN1Z3N0eXEifQ.7oi4oIJOhiZtGDOLFWt0Dw";
+  "pk.eyJ1IjoiaW1wZXlyeWFuIiwiYSI6ImNsNTFhejhmaTAzd3EzYnFxNHdlYnp5dTkifQ.DOAO4_xK_99zVGEfW6pJUw";
 
 const geo = {
   type: "Feature",
