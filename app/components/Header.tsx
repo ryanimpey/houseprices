@@ -3,8 +3,8 @@ import React from "react";
 
 function Header() {
   return (
-    <nav className="absolute w-full z-10 p-4 lg:p-8">
-      <ul className="flex justify-between">
+    <nav className="fixed top-0 w-full z-10 lg:h-20 bg-[#E9F4FF] lg:bg-transparent">
+      <ul className="flex justify-between p-8">
         <li>
           <Link to="/" className="flex">
           <img
