@@ -29,6 +29,7 @@ export default function Index() {
         </article>
         <article className="h-1/2 lg:flex lg:h-full lg:items-center lg:justify-center">
           <img
+            alt="Illustration of purchasing a house"
             src="/images/buying_illustration.svg"
             className="mt-4 p-2 lg:max-w-lg"
           />

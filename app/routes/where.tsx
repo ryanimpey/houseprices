@@ -14,7 +14,9 @@ import { getGeojsonById } from "~/models/geojson.server";
 import type { MapRef } from "react-map-gl";
 import type { LoaderFunction } from "@remix-run/node";
 import type { Feature, Point, Properties } from "@turf/turf";
-import { Id, toast } from "react-toastify";
+import { toast } from "react-toastify";
+
+import type { Id } from "react-toastify";
 
 export const meta: MetaFunction = () => {
   return {
