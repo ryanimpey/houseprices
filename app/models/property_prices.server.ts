@@ -1,13 +1,15 @@
 import { prisma } from "~/db.server";
 import type { PropertyType, PropertyTypeResult } from "~/utils";
 
-type PropertyPriceType = "Semi_Detached_Average_Price" | "Detached_Average_Price";
+type PropertyPriceType =
+  | "Semi_Detached_Average_Price"
+  | "Detached_Average_Price";
 type TypeFieldResult = { [key: string]: boolean };
 
 interface ChartResult {
-  date: string,
-  [key: PropertyPriceType]: number,
-};
+  date: string;
+  [key: PropertyPriceType]: number;
+}
 
 function typeToRecentPriceTypeFields(
   type: PropertyType | null
@@ -72,9 +74,15 @@ export function getPresentableTypeString(type: PropertyType | null): string {
   }
 }
 
+function mapYearResultsToUniform(results: Array<PropertyPriceType>) {
+  let values = Object.values(results);
+  let formatter = new Intl.DateTimeFormat("en", { month: "short" });
+  return { date:formatter.format(new Date(values[0])), price: values[1] };
+}
+
 function mapResultsToUniform(results: Array<PropertyPriceType>) {
   let values = Object.values(results);
-  return { date: values[0].substring(0, 4), price: values[1]};
+  return { date: values[0].substring(0, 4), price: values[1] };
 }
 
 export async function getPriceOverTime(
@@ -82,8 +90,6 @@ export async function getPriceOverTime(
   type: PropertyType | null
 ): Promise<any | null> {
   const propertyField = typeToPropertyPriceField(type);
-
-  console.log("WHERE:", where);
 
   const result: Array<ChartResult> = await prisma.prices.findMany({
     where: {
@@ -101,11 +107,40 @@ export async function getPriceOverTime(
     },
     select: {
       Date: true,
-      ...propertyField
+      ...propertyField,
     },
   });
 
   return result.map(mapResultsToUniform);
+}
+
+export async function getPriceOverYear(
+  where: string | null,
+  type: PropertyType | null
+): Promise<any | null> {
+  const propertyField = typeToPropertyPriceField(type);
+
+  const result: Array<ChartResult> = await prisma.prices.findMany({
+    where: {
+      Region_Name: {
+        contains: where,
+        mode: "insensitive",
+      },
+      Date: {
+        contains: new Date().getFullYear().toString(),
+        mode: "insensitive",
+      },
+    },
+    orderBy: {
+      Date: "asc",
+    },
+    select: {
+      Date: true,
+      ...propertyField,
+    },
+  });
+
+  return result.map(mapYearResultsToUniform);
 }
 
 export async function getRecentPropertyPriceByArea(

@@ -1,30 +1,30 @@
 import React from "react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { LineChart, Line, XAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 type ChartDataType = {
   date: string;
   price: number;
-}
+};
 
-const displayPrice =  new Intl.NumberFormat("en-GB", {
+const displayPrice = new Intl.NumberFormat("en-GB", {
   style: "currency",
   currency: "GBP",
   maximumFractionDigits: 0,
 });
 
 function tooltipFormatter(value, name, props) {
-  return [displayPrice.format(value), "Price",];
+  return [displayPrice.format(value), "Price"];
 }
 
-export default function Chart({data}: {data: Array<ChartDataType>}) {
+export default function Chart({
+  data,
+  small = false,
+}: {
+  data: Array<ChartDataType>;
+  small: boolean;
+}) {
   return (
-    <div style={{ height: "300px", width: "100%" }}>
+    <div style={{ width: "100%", height: small ? "150px" : "300px" }}>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           width={500}
