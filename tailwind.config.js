@@ -14,7 +14,7 @@ module.exports = {
       center: true,
     },
     fontFamily: {
-      'sans': ['Cabin', 'sans-serif']
+      'sans': ['Glacial', 'sans-serif']
     }
   },
   plugins: [],

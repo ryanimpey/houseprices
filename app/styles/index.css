@@ -1,45 +1,65 @@
+@media screen and (max-width: 1024px) {
+  .index--background--clip {
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+  }
+}
+
 .text--cabin--bold {
-    color: #363636;
-    font-weight: bold;
-    font-family: "Cabin", sans-serif;
+  color: #363636;
+  font-weight: bold;
+  font-family: "Cabin", sans-serif;
 }
 
 .text--title {
-    font-size: 36px;
-    color: #363636;
-    font-family: "Cabin", sans-serif;
-    font-weight: bold;
+  font-size: 36px;
+  color: #363636;
+  font-family: "Cabin", sans-serif;
+  font-weight: bold;
 }
 
 .text--subtitle {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 .text--body {
-    line-height: 18px;
-    font-size: 16px;
-    color: #363636;
-    font-family: "Cabin", sans-serif;
+  line-height: 18px;
+  font-size: 16px;
+  color: #363636;
+  font-family: "Cabin", sans-serif;
 }
 
 .main--svg--house {
-    max-width: 212px;
+  max-width: 212px;
 }
 
 .main--text--container {
-    max-width: 360px;
-    text-align: center;
+  max-width: 360px;
+  text-align: center;
 }
 
 .button--primary {
-    border: 8px solid #36B3FF;
-    border-radius: 22px;
-    background-color: rgba(54, 179, 255, 0.5);
-    padding-left: 5rem;
-    padding-right: 5rem;
-    box-shadow: 5px 5px 0px #363636;
+  border: 8px solid #36b3ff;
+  border-radius: 22px;
+  background-color: rgba(54, 179, 255, 0.5);
+  padding-left: 5rem;
+  padding-right: 5rem;
+  box-shadow: 5px 5px 0px #363636;
 }
 
 .button--primary:focus {
-    box-shadow: none;
+  box-shadow: none;
+}
+
+@font-face {
+  font-family: "Glacial";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/GlacialIndifference-Regular.otf");
+}
+
+@font-face {
+  font-family: "Glacial";
+  font-style: bold;
+  font-weight: 700;
+  src: url("/fonts/GlacialIndifference-Bold.otf");
 }

@@ -1,56 +1,38 @@
 import { Link } from "@remix-run/react";
-import type { MetaFunction } from "@remix-run/node";
-
-export const meta: MetaFunction = () => {
-  return {
-    title: "Get Started | HousePrices",
-    description:
-      "Find out how much housing costs in and around your area. Showing results for all housing types back to 1990",
-  };
-};
+import React from "react";
 
 export default function Index() {
   return (
-    <main className="container flex h-full justify-center">
-      <section className="flex max-w-md flex-col justify-center">
-        <div className="py-8">
-          <img
-            alt="Drawing of a house"
-            className="m-0 m-auto max-h-56"
-            src="/images/undraw_handcrafts_house.svg"
-          />
-        </div>
-        <div className="mt-4 pt-8">
-          <h1 className="pb-4 text-center font-sans text-4xl font-bold text-[#363636]">
-            local housing data
-          </h1>
-          <p className="max-w-sm px-3 text-center font-sans leading-5 text-[#363636]">
-            Find out how much pricing for housing has changed in your area, or
-            across the UK. Search by region and property type, and view house
-            price data back to 1995 to see how prices today relate to yesterday.
+    <main className="h-full lg:flex">
+      <section className="index--background--clip h-full bg-[#E9F4FF] lg:bg-stone-50 flex items-center lg:w-1/2 sm:justify-center sm:items-center">
+        <div className="px-4 pr-8 max-w-sm lg:max-w-md">
+          <h1 className="pb-4 text-2xl font-bold">Find prices around you</h1>
+          <p className="">
+            It's a well-known fact that the cost of buying a house in the United
+            Kingdom has been rising steadily for years. But what might not be as
+            obvious is how quickly that cost has increased over time.
           </p>
+          <br />
+          <p className="mb-6">
+            Find out the cost of buying in your area, and see how the cost
+            compares to buying in the past.
+          </p>
+          <Link to="/where" className="bg-[#607FF2] inline-block py-3 px-8 font-bold text-white tracking-widest rounded-md">Get Started</Link>
         </div>
-        <div className="mt-8 pt-8 text-center">
-          <Link
-            to="/where"
-            className="translate-x-2 rounded-3xl border-8 border-[#36B3FF] bg-[#9bd9ff] px-20 py-2 font-sans font-bold text-[#363636] shadow-custom"
-          >
-            get started
-          </Link>
-        </div>
-        <div className="mt-8 pt-8 text-center">
-          <p><small>&copy; copyright {new Date().getFullYear()} housedata.uk</small></p>
-        </div>
+      </section>
+      <section className="h-full lg:w-1/2 lg:flex lg:bg-[#E9F4FF] justify-center items-center">
+        <img src="/images/buying_illustration.svg" className="p-2 mt-4 lg:max-w-lg"/>
       </section>
     </main>
   );
 }
 
 export const links = () => [
-  {
-    rel: "preload",
-    href: "/images/undraw_handcrafts_house.svg",
-    as: "image",
-    type: "image/svg+xml",
-  },
-];
+    {
+      rel: "preload",
+      href: "/images/buying_illustration.svg",
+      as: "image",
+      type: "image/svg+xml",
+    },
+  ];
+  
