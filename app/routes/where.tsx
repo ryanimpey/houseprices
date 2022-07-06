@@ -118,7 +118,7 @@ export default function Where() {
   return (
     <React.Fragment>
       <div className="background--clip fixed -z-10 h-full w-full bg-[#E9F4FF]" />
-      <main className="h-full">
+      <main className="py-24">
         <section className="flex h-1/2 justify-center items-end">
           <div className="mt-8 max-w-sm px-4 pr-8 lg:max-w-md">
             <h1 className="pb-4 text-2xl font-bold">Where are we buying?</h1>
