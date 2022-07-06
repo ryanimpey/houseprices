@@ -5,7 +5,7 @@ import Map, { Source, Layer } from "react-map-gl";
 import { bbox, center } from "@turf/turf";
 import Select from "react-select";
 import React, { useEffect, useState, useRef } from "react";
-import toStartCase from "lodash.startcase";
+import toStartCase from 'lodash.startcase'
 import { selectStyle } from "~/utils";
 import type { MetaFunction } from "@remix-run/node";
 import { getDistricts } from "~/models/districts.server";
@@ -19,7 +19,7 @@ import { Id, toast } from "react-toastify";
 export const meta: MetaFunction = () => {
   return {
     title: "Where | HousePrices",
-  };
+  }
 };
 
 const accessToken =
@@ -37,7 +37,7 @@ const layerStyle = {
   },
 };
 
-type SelectType = { label: string; value: string } | null;
+type SelectType = { label: string, value: string } | null;
 
 type LoaderData = { districts: Array<SelectType>; geojson?: any };
 
@@ -69,9 +69,9 @@ export default function Where() {
 
   const { districts } = useLoaderData<LoaderData>();
 
-  function onRegionChange({ value, label }: { value: string; label: string }) {
+  function onRegionChange({ value, label }: { value: string, label: string }) {
     let res = districts.findIndex((val) => val?.label == label);
-    if (res === -1) {
+    if(res === -1) {
       return toast.error("Invalid option selected");
     }
 
@@ -80,19 +80,19 @@ export default function Where() {
   }
 
   function buildParamString(): string | Id {
-    if (where.length == 0) {
+    if(where.length == 0) {
       return "";
     }
-
-    if (districts.findIndex((val) => val?.label == where) === -1) {
+  
+    if(districts.findIndex((val) => val?.label == where) === -1) {
       return toast.error("Invalid option selected");
     }
 
-    return `where=${encodeURIComponent(where)}`;
+      return `where=${encodeURIComponent(where)}`
   }
 
   function checkValidData(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
-    if (districts.findIndex((val) => val?.label == where) === -1) {
+    if(districts.findIndex((val) => val?.label == where) === -1) {
       toast.info("No where option has been recorded.");
       return e.preventDefault();
     }
@@ -116,34 +116,24 @@ export default function Where() {
   }, [fetcher.type, fetcher.data?.geojson]);
 
   return (
-    <React.Fragment>
-      <div className="background--clip fixed -z-10 h-full w-full bg-[#E9F4FF]" />
-      <main className="h-full">
-        <section className="flex h-1/2 justify-center items-end">
-          <div className="mt-8 max-w-sm px-4 pr-8 lg:max-w-md">
-            <h1 className="pb-4 text-2xl font-bold">Where are we buying?</h1>
-            <p className="mb-6">
-              House prices in the north of England have always been lower than
-              those in the south, but the gap has widened in recent years. By
-              selecting the region you’re buying in, we can provide you with the
-              most accurate result for the cost of a property in your area.
-            </p>
-            <p className="mb-4">
-              <fetcher.Form method="get" action="/where">
-                <Select
-                  ref={selectRef}
-                  name="region"
-                  placeholder="you need to type here"
-                  options={districts}
-                  onChange={onRegionChange}
-                  styles={selectStyle}
-                />
-              </fetcher.Form>
-            </p>
-          </div>
-        </section>
-        <section>
-        <div className="flex flex-col justify-center items-center mb-4 h-96">
+    <main className="container flex h-full justify-center">
+      <section className="flex max-w-md flex-col justify-center">
+        <div>
+          <h1 className="pb-4 text-left font-sans text-2xl font-bold text-[#363636]">
+            Where Are We Buying?
+          </h1>
+          <fetcher.Form method="get" action="/where">
+            <Select
+              ref={selectRef}
+              name="region"
+              placeholder="you need to type here"
+              options={districts}
+              onChange={onRegionChange}
+              styles={selectStyle}
+            />
+          </fetcher.Form>
+        </div>
+        <div className="h-96 my-8">
           <Map
             ref={mapRef}
             mapboxAccessToken={accessToken}
@@ -178,14 +168,13 @@ export default function Where() {
         <div className="text-center">
           <Link
             to={{pathname: "/what", search: buildParamString()}} onClick={checkValidData}
-            className="bg-[#607FF2] inline-block py-3 px-8 font-bold text-white tracking-widest rounded-md"
+            className="rounded-3xl border-8 border-[#36B3FF] bg-[#9bd9ff] px-20 py-2 font-sans font-bold text-[#363636] shadow-custom"
           >
             next
           </Link>
         </div>
-        </section>
-      </main>
-    </React.Fragment>
+      </section>
+    </main>
   );
 }
 
