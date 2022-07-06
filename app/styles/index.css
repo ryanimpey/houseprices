@@ -4,6 +4,10 @@
   }
 }
 
+.background--clip {
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+}
+
 .text--cabin--bold {
   color: #363636;
   font-weight: bold;

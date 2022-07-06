@@ -22,6 +22,7 @@ import tailwindStylesheetUrl from "./styles/tailwind.css";
 import mainStylesheetUrl from "./styles/index.css";
 import { getUser } from "./session.server";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: toastifyStylesheetUrl },
@@ -77,6 +78,7 @@ export default function App() {
         <Scripts />
         <LiveReload />
         <ToastContainer />
+        <Footer />
       </body>
     </html>
   );

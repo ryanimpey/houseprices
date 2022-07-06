@@ -82,10 +82,11 @@ export const selectStyle: StylesConfig = {
   }),
   control: (provided, state) => ({
     ...provided,
-    fontFamily: "Cabin",
+    fontFamily: "Glacial",
     border: "none",
     borderRadius: 0,
-    borderBottom: "5px solid #36B3FF",
+    borderBottom: "5px solid #607FF2",
+    backgroundColor: 'transparent',
   }),
 };
 
